@@ -24,6 +24,7 @@ class DataStore {
    * @memberof DataStore
    */
   addEntry({ key, value }) {
+    // clear expired entries
     clearExpiredEntries(this.entries, expiryTimeInSeconds);
     this.entries.unshift({ key, value, timestamp: now() });
   }

@@ -8,7 +8,7 @@ module.exports.getTimeDifference = (upperTime, lowerTime) => {
   let diff =
     (new Date(upperTime).getTime() - new Date(lowerTime).getTime()) / 1000;
 
-  return Math.abs(Math.floor(diff));
+  return Math.abs(Math.round(diff));
 };
 
 // One hour in seconds

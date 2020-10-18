@@ -16,6 +16,6 @@ app.use("/", router);
 // Application to handle other requests that handler cannot be found
 app.all("*", handleNotFound);
 
-app.listen(port, console.log(`<== Metric SERVER started at ${port} -- ==>`));
+app.listen(port, console.log(`<== Metric SERVER started at ${port} ==>`));
 
 module.exports = app;

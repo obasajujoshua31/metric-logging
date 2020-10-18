@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "NODE_ENV=test TIMETOEXPIRE=1 mocha test/index.spec.js --exit"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -16,5 +17,10 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.2.0"
   }
 }
