@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple light weight API for metric logging",
+    "version": "1.0.0",
+    "title": "Simple Metric API",
+    "contact": {
+      "email": "obasajujoshua31@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "metric-logging.herokuapp.com",
+  "tags": [
+    {
+      "name": "metrics",
+      "description": "Operations available for metrics"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/metric/{key}": {
+      "post": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "post new metric",
+        "operationId": "postMetric",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "key to add value as",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "valueToAdd",
+            "description": "value to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/metricBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "good value received"
+          },
+          "400": {
+            "description": "bad request"
+          },
+          "406": {
+            "description": "method not implemented"
+          }
+        }
+      }
+    },
+    "/metric/{key}/sum": {
+      "get": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "get metrics in the last hour",
+        "operationId": "getMetrics",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "key to get metric sum",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "good value received",
+            "schema": {
+              "$ref": "#/definitions/metricBody"
+            }
+          },
+          "404": {
+            "description": "metric not found for key"
+          },
+          "406": {
+            "description": "method not implemented"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "metricBody": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
