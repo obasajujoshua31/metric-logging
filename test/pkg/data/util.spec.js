@@ -11,23 +11,23 @@ describe("Test clear expired entries", () => {
     expect(testEntries.length).to.equal(0);
   });
 
-  it("should clear entries after the expiry time", () => {
+  it("should clear entries after the expiry time", async () => {
     const expiryTime = 1;
 
     const entries = [{ key: "test", value: 30, timestamp: now() }];
 
-    after(() => {
+    await after(() => {
       clearExpiredEntries(entries, expiryTime);
       expect(entries.length).to.equal(0);
     }, expiryTime);
   });
 
-  it("should not clear entries if the expiry time has not elapsed", () => {
+  it("should not clear entries if the expiry time has not elapsed", async () => {
     const expiryTime = 6;
 
     const entries = [{ key: "test", value: 30, timestamp: now() }];
 
-    after(() => {
+    await after(() => {
       clearExpiredEntries(entries, expiryTime);
       expect(entries.length).to.equal(1);
     }, expiryTime - 5);
