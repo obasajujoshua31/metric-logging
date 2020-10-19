@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
+const compression = require("compression");
 const appLogger = require("./pkg/logger");
 const cors = require("cors");
 const { NOTACCEPTED } = require("./api/constants");
@@ -9,6 +10,7 @@ const { NOTACCEPTED } = require("./api/constants");
  * @param  {express.Application} app
  */
 const initAppMiddlewares = (app) => {
+  app.use(compression());
   app.use(cors());
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
