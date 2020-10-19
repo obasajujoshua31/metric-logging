@@ -75,7 +75,7 @@ describe("Test POST /metric/:id ", () => {
   });
 
   it("should return 404 after metric has expired", async () => {
-    return afterDelay(async () => {
+    return await afterDelay(async () => {
       response = await chai.request(server).get(`${baseUrl}/visitor_count/sum`);
 
       expect(response.status).to.equal(NOTFOUND);

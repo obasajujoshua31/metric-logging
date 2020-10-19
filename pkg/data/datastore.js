@@ -1,8 +1,8 @@
 require("dotenv").config();
-const { now } = require("./time");
-const clearExpiredEntries = require("./util");
+const LinkedList = require("./linkedList");
+const { now, oneHourInSeconds } = require("./time");
 
-const expiryTimeInSeconds = process.env.TIMETOEXPIRE || 3600;
+const expiryTimeInSeconds = process.env.TIMETOEXPIRE || oneHourInSeconds;
 /**
  * @class DataStore
  * @description This creates a new datastore instance if there is no existing datastore instance
@@ -13,6 +13,7 @@ class DataStore {
     if (!DataStore.instance) {
       this.entries = [];
       DataStore.instance = this;
+      this.linkedlist = new LinkedList();
     }
 
     return DataStore.instance;
@@ -25,8 +26,8 @@ class DataStore {
    */
   addEntry({ key, value }) {
     // clear expired entries
-    clearExpiredEntries(this.entries, expiryTimeInSeconds);
-    this.entries.unshift({ key, value, timestamp: now() });
+    this.linkedlist.clearExpiredNodes(expiryTimeInSeconds);
+    this.linkedlist.addElement({ key, value, timestamp: now() });
   }
 
   /**
@@ -35,17 +36,8 @@ class DataStore {
    */
   getSum(key) {
     // clear expired entries
-    clearExpiredEntries(this.entries, expiryTimeInSeconds);
-
-    let sum = 0;
-
-    this.entries.forEach((entry) => {
-      if (entry.key === key) {
-        sum += entry.value;
-      }
-    });
-
-    return sum;
+    this.linkedlist.clearExpiredNodes(expiryTimeInSeconds);
+    return this.linkedlist.getSumOfElement(key);
   }
 }
 
