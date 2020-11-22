@@ -17,6 +17,8 @@ app.use("/", router);
 // set up swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
+console.log("In branch kenneth ......")
+
 // Application to handle other requests that handler cannot be found
 app.all("*", handleNotFound);
 
